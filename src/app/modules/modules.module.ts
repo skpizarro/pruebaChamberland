@@ -8,6 +8,8 @@ import { FooterHomeComponent } from './components/footer-home/footer-home.compon
 import { FooterFormComponent } from './components/footer-form/footer-form.component';
 import { GeneralDataFormComponent } from './components/general-data-form/general-data-form.component';
 import { FormsPageComponent } from './pages/forms-page/forms-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -19,11 +21,13 @@ import { FormsPageComponent } from './pages/forms-page/forms-page.component';
     FooterHomeComponent,
     FooterFormComponent,
     GeneralDataFormComponent,
-    FormsPageComponent
+    FormsPageComponent,
+    LoginPageComponent
   ],
   imports: [
     CommonModule,
-    ModulesRoutingModule
+    ModulesRoutingModule,
+    HttpClientModule
   ]
 })
 export class ModulesModule { }
