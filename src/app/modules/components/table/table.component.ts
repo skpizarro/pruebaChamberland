@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, input, OnInit } from '@angular/core';
 import { TableData } from '../../interfaces/table-data.interface';
+import { Merchant } from '../../interfaces/merchant.interface';
 
 @Component({
   selector: 'app-table',
@@ -8,12 +9,15 @@ import { TableData } from '../../interfaces/table-data.interface';
 })
 export class TableComponent implements OnInit {
 
+  @Input()
+  merchantsList:Merchant[] = [];
+
   tableData: TableData[] = [
-    { name: 'Company A', phone: '+1234567890', email: 'info@companya.com', registrationDate: new Date('2023-01-01'), establishmentsCount: 10, status: 'Active' },
-    { name: 'Company B', phone: '+9876543210', email: 'support@companyb.com', registrationDate: new Date('2022-06-15'), establishmentsCount: 5, status: 'Inactive' },
-    { name: 'Company C', phone: '+1234567890', email: 'info@companyc.com', registrationDate: new Date('2023-04-12'), establishmentsCount: 12, status: 'Active' },
-    { name: 'Company D', phone: '+9876543210', email: 'support@companyd.com', registrationDate: new Date('2022-10-05'), establishmentsCount: 8, status: 'Inactive' },
-    { name: 'Company E', phone: '+1234567890', email: 'info@companye.com', registrationDate: new Date('2023-03-28'), establishmentsCount: 15, status: 'Active' },
+    // { name: 'Company A', phone: '+1234567890', email: 'info@companya.com', registrationDate: new Date('2023-01-01'), establishmentsCount: 10, status: 'Active' },
+    // { name: 'Company B', phone: '+9876543210', email: 'support@companyb.com', registrationDate: new Date('2022-06-15'), establishmentsCount: 5, status: 'Inactive' },
+    // { name: 'Company C', phone: '+1234567890', email: 'info@companyc.com', registrationDate: new Date('2023-04-12'), establishmentsCount: 12, status: 'Active' },
+    // { name: 'Company D', phone: '+9876543210', email: 'support@companyd.com', registrationDate: new Date('2022-10-05'), establishmentsCount: 8, status: 'Inactive' },
+    // { name: 'Company E', phone: '+1234567890', email: 'info@companye.com', registrationDate: new Date('2023-03-28'), establishmentsCount: 15, status: 'Active' },
 
   ];
 
@@ -25,7 +29,24 @@ export class TableComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.transformToTableData();
     this.updatePageNumbers();
+  }
+
+  transformToTableData(): void{
+    if(this.merchantsList.length > 0){
+      this.merchantsList.forEach(merchant => {
+        const data:TableData={
+          name: merchant.name,
+          phone: merchant.phone,
+          email: merchant.email,
+          registrationDate: merchant.registrationDate,
+          establishmentsCount: merchant.establishments.length,
+          status: merchant.status
+        };
+        this.tableData.push(data);
+      });
+    }
   }
 
   nextPage(): void {
